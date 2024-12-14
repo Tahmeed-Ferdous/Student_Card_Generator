@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- <form method="post">
+        {% csrf_token %}
+        <input type="number" placeholder="num1" name="num1">
+        <input type="number" placeholder="num2" name="num2">
+        <button type="submit">Submit</button>
+    </form>
+    <h2>The Data is {{number}} </h2> -->
+    <!-- <h1>this is home</h1>
+    {% for i in stu %}
+    name: {{i.name}}
+    <br>
+    roll: {{i.roll}}
+    <br>
+    {% endfor %} -->
+    <div class="container">
+      <div class="mb-3 mt-4">
+      <h1>Management System</h1>
+      <h5 style="font-weight: 50;">Student cards generator</h5>
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3 mt-4">
+              <label class="col-form-label">Name</label>
+              <input class="form-control" type="text" placeholder="Full name" aria-label="default input example" name="name">
+          </div>
+          <div class="mb-3 pt-4">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" placeholder="email@gmail.com" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+          </div>
+          <div class="row g-1 align-items-center">
+              <label for="inputPassword6" class="col-form-label">Password</label>
+              <div class="col-auto">
+                <input type="password" id="inputPassword6" placeholder="Atleast 8 characters" class="form-control" name="password" aria-describedby="passwordHelpInline">
+              </div>
+            </div>
+          <div class="mb-3">
+              <label for="formFile" class="form-label m-2 mt-4">Drop your files here</label>
+              <input class="form-control" type="file" id="formFile" name="img">
+            </div>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+  
+        <div class="row">
+          {% for student in students %}
+          <div class="col-md-3">
+              <div class="card mt-4" style="width: 18rem;">
+                  <div class="card-header">
+                      {{ student.name }}
+                  </div>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Email: {{ student.email }}</li>
+                      <li class="list-group-item">Password: {{ student.password }}</li>
+                      {% if stu.id %}
+                        <a class="btn btn-danger mt-3" href="{% url 'delete_stu' stu.id %}">Delete</a>
+                      {% endif  %}
+                  </ul>
+                  {% if student.img %}
+                  <img src="{{ student.img.url }}" class="card-img-top" alt="{{ student.name }}" style="width: 100%; height: 200px; object-fit: cover;">
+                  {% else %}
+                  <img src="/media/def.png" class="card-img-top" alt="Default Image" style="width: 100%; height: 200px; object-fit: cover;">
+                  {% endif %}
+                  <div>
+                    <a href="{% url 'delete_stu' student.id %}" class="btn btn-danger m-3">Delete</a>
+                    <a href="{% url 'update' student.id %}" class="btn btn-success p-2">Update</a>
+                  </div>
+              </div>
+          </div>
+          {% empty %}
+          <div class="alert alert-info mt-4" role="alert">
+              No students found.
+          </div>
+          {% endfor %}
+      </div>
+        
+      {% if error %}
+      <div class="alert alert-danger mt-4" role="alert">
+          {{ error }}
+      </div>
+      {% endif %}
+        
+  </div>
+    
+</body>
+</html>
